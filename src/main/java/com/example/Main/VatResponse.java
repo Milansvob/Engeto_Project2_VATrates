@@ -1,6 +1,7 @@
 package com.example.Main;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.JsonArray;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,28 +41,6 @@ public class VatResponse {
         this.rates = rates;
     }
 
-    // převedení klíčů do pole a
-//    public Object getCountyAbbrev(int i) {
-//        TreeMap<String, CountryVat> sorted = new TreeMap<>(getRates());
-//        Object[] abbrevs = rates.keySet().toArray();
-//        return abbrevs[i];
-//    }
-//
-//    public void setCountyAbbrev(String countyAbbrev) {
-//        this.countryAbbrev = countyAbbrev;
-//    }
-
-//    public void exportToFile(String filename) throws StateException {
-//        try (PrintWriter writer = new PrintWriter(new FileOutputStream(filename))){
-//            for (int i = 0; i<rates.size();i++){
-//                writer.println(rates.get(i));
-//            }
-//        }catch (FileNotFoundException e){
-//            throw new StateException("");
-//        }
-//    }
-
-
-
-
+    public void add(String jsonArray1, JsonArray jsonArray11) {
+    }
 }

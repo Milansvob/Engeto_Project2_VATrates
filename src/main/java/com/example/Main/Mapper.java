@@ -3,6 +3,9 @@ package com.example.Main;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,10 +14,12 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.rmi.server.LogStream.log;
+
+@Service
 public class Mapper {
 
     private VatResponse vatResponse;
-    //private List<Entry<String, CountryVat>> listOfEntry;
     List<CountryVat> vatSorted;
     String input;
 
@@ -59,29 +64,9 @@ public class Mapper {
         for (int i = vatSorted.size() - 3; i < vatSorted.size(); i++) {
             System.out.println(vatSorted.get(i));
         }
-
-
-        // Set of the entries from the HashMap
-//        Set<Map.Entry<String, CountryVat>> entrySet
-//                = vatResponse.getRates().entrySet();
-
-//         listOfEntry = vatResponse.getRates().entrySet()
-//                .stream()
-//                .collect(Collectors.toList());
-
-        // Creating an ArrayList of Entry objects
-        //listOfEntry = new ArrayList<>(entrySet);
-
-
         return vatSorted;
     }
 
-//    public void select3CountriesWLowestVAT() {
-//        System.out.println("3 countries with the lowest VAT rates:");
-//        for (int i = 0; i < 3; i++) {
-//            System.out.println(switchHashMapToArrayList().get(i));
-//        }
-//    }
 
     public void exportToFile1(String filename) throws StateException {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(filename))) {
@@ -96,7 +81,8 @@ public class Mapper {
         }
     }
 
-    public CountryVat setEnterVatFromConsole()  {
+
+    public CountryVat setEnterVatFromConsole() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Country Abbreviation:");
         while (vatResponse.getRates().get(input) == null) {
@@ -108,4 +94,28 @@ public class Mapper {
         }
         return vatResponse.getRates().get(input);
     }
+
+    public String parseArrayListToJsonList() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        // This is the main class for using Gson. Gson is typically used by first constructing a Gson instance and then invoking toJson(Object) or fromJson(String, Class) methods on it.
+        // Gson instances are Thread-safe so you can reuse them freely across multiple threads.
+        Gson gson = gsonBuilder.create();
+
+        String JSONObject = gson.toJson(vatSorted);
+        //log("\nConverted JSONObject ==> " + JSONObject);
+
+        Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+        String prettyJson = prettyGson.toJson(vatSorted);
+
+        log("\nPretty JSONObject ==> " + prettyJson);
+        return prettyJson;
+
+    }
+
+    private static void log(Object print) {
+        System.out.println(print);
+    }
+
+
 }

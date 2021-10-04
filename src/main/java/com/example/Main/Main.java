@@ -28,59 +28,9 @@ public class Main {
         Mapper mapper = new Mapper();
         mapper.mapToObject(body);
 
-//        List<CountryVat> vatSorted = new ArrayList<>(mapper.getVatResponse().getRates().values());
-//        Collections.sort(vatSorted);
 //
-//        System.out.println("3 countries with the lowest VAT rates:");
-//        for (int i=0; i< 3;i++) {
-//            System.out.println(vatSorted.get(i));
-//        }
-//
-//        System.out.println("3 countries with the highest VAT rates:");
-//        for (int i=vatSorted.size()-3; i < vatSorted.size(); i++) {
-//            System.out.println(vatSorted.get(i));
-//        }
-
-//       SortedSet<CountryVat> values = new TreeSet<>(mapper.getVatResponse().getRates().values());
-//       System.out.println(values);
-//
-//        TreeMap<String, CountryVat> sorted = new TreeMap<>(mapper.getVatResponse().getRates());
-//       System.out.println("+++++"+sorted+"++++");
-
-
-//        for (Map.Entry<String, CountryVat> entry : mapper.getVatResponse().getRates().entrySet()) {
-//            String key = entry.getKey();
-//            CountryVat value = entry.getValue();
-//            System.out.println(key + "  " + value);
-//        }
-
-
-//        mapper.getVatResponse().getRates().entrySet()
-//                .stream()
-//                .sorted(Map.Entry.comparingByValue())
-//                .forEach(System.out::println);
-
-//        // Set of the entries from the HashMap
-//        Set<Map.Entry<String, CountryVat> > entrySet
-//                = mapper.getVatResponse().getRates().entrySet();
-//
-//        // Creating an ArrayList of Entry objects
-//        List<Map.Entry<String, CountryVat> > listOfEntry
-//                = new ArrayList<>(entrySet);
-//
-//        System.out.println("00000"+listOfEntry);
-//
-//
-//
-//
-//       // Collections.sort(ListOfEntry);
-//        System.out.println("3 countries with the lowest VAT rates:");
-//        for (int i=0; i< 3;i++) {
-//            System.out.println(listOfEntry.get(i));
-//        }
-
-
         mapper.switchHashMapToArrayList();
+
 
         // First import into PLANTS_OUTPUT_TXT
         try{
@@ -90,6 +40,10 @@ public class Main {
         }
 
         System.out.println(mapper.setEnterVatFromConsole());
+
+//        MainService mainService = new MainService();
+//        mainService.g();
+        mapper.parseArrayListToJsonList();
 
     }
 }
