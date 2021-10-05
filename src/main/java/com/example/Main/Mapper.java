@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -14,14 +16,14 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.rmi.server.LogStream.log;
-
 @Service
 public class Mapper {
 
     private VatResponse vatResponse;
     List<CountryVat> vatSorted;
     String input;
+    JSONObject obj;
+    String json;
 
 
     // teď je potřeba udělat mapování k tomu ptřebuju ObjecMapper a vytvořit si třídy do kterých to budu ukládat
@@ -95,27 +97,43 @@ public class Mapper {
         return vatResponse.getRates().get(input);
     }
 
-    public String parseArrayListToJsonList() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
+    public JSONObject getJSONObject() throws JSONException {
+        obj = new JSONObject();
+        for (int i = 0; i < 3; i++) {
 
-        // This is the main class for using Gson. Gson is typically used by first constructing a Gson instance and then invoking toJson(Object) or fromJson(String, Class) methods on it.
-        // Gson instances are Thread-safe so you can reuse them freely across multiple threads.
-        Gson gson = gsonBuilder.create();
+            obj.put("Name", vatSorted.get(i).getCountry());
+            obj.put("VAT", vatSorted.get(i).getStandardRate());
+            System.out.println(obj);
 
-        String JSONObject = gson.toJson(vatSorted);
-        //log("\nConverted JSONObject ==> " + JSONObject);
-
-        Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-        String prettyJson = prettyGson.toJson(vatSorted);
-
-        log("\nPretty JSONObject ==> " + prettyJson);
-        return prettyJson;
-
+        }
+        return obj;
     }
 
-    private static void log(Object print) {
-        System.out.println(print);
-    }
 
+
+//    public String parseArrayListToJsonList() {
+//        GsonBuilder gsonBuilder = new GsonBuilder();
+//
+//        // This is the main class for using Gson. Gson is typically used by first constructing a Gson instance and then invoking toJson(Object) or fromJson(String, Class) methods on it.
+//        // Gson instances are Thread-safe so you can reuse them freely across multiple threads.
+//        Gson gson = gsonBuilder.create();
+//
+//        String JSONObject = gson.toJson(vatSorted);
+//        //log("\nConverted JSONObject ==> " + JSONObject);
+//
+//        Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+//        String prettyJson = prettyGson.toJson(vatSorted);
+//
+//        log("\nPretty JSONObject ==> " + prettyJson);
+//        return prettyJson;
+//    }
+//    private static void log(Object print) {
+//        System.out.println(print);
+//    }
+
+
+//    public String s() {
+//        return json = new Gson().toJson(vatSorted );
+//    }
 
 }

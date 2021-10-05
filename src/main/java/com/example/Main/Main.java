@@ -3,6 +3,7 @@ package com.example.Main;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,7 +20,7 @@ public class Main {
     public static final String VAT_EU_OUTPUT1_CSV = "vat-lowest-highest.txt";
 
 
-    public static void main(String[]args) throws IOException, InterruptedException {
+    public static void main(String[]args) throws IOException, InterruptedException, JSONException {
         //vytvoření instance třídy
         CallAppi callAppi = new CallAppi();
         // zavolání metody callApi
@@ -41,9 +42,8 @@ public class Main {
 
         System.out.println(mapper.setEnterVatFromConsole());
 
-//        MainService mainService = new MainService();
-//        mainService.g();
-        mapper.parseArrayListToJsonList();
+        System.out.println("\n Json objects with lowest VAT: ");
+        mapper.getJSONObject();
 
     }
 }
