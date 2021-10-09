@@ -14,8 +14,8 @@ public class VatResponse {
     @JsonProperty(value = "last_updated")
     private String lastUpdated;
     private String disclaimer;
-//    private String countryAbbrev;
     private Map<String, CountryVat> rates = new HashMap<>();
+
 
     public String getLastUpdated() {
         return lastUpdated;
@@ -41,6 +41,4 @@ public class VatResponse {
         this.rates = rates;
     }
 
-    public void add(String jsonArray1, JsonArray jsonArray11) {
-    }
 }

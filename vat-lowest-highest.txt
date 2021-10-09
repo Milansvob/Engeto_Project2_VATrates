@@ -1,6 +1,6 @@
- Country - Luxembourg -  Vat standard rate = 17.0
- Country - Malta -  Vat standard rate = 18.0
- Country - Cyprus -  Vat standard rate = 19.0
- Country - Croatia -  Vat standard rate = 25.0
- Country - Sweden -  Vat standard rate = 25.0
- Country - Hungary -  Vat standard rate = 27.0
+Standard Rate: 17.0 | Reduced Rate: 14.00 | Country: Luxembourg
+Standard Rate: 18.0 | Reduced Rate: 7.00 | Country: Malta
+Standard Rate: 19.0 | Reduced Rate: 9.00 | Country: Cyprus
+Standard Rate: 25.0 | Reduced Rate: 13.00 | Country: Croatia
+Standard Rate: 25.0 | Reduced Rate: 12.00 | Country: Sweden
+Standard Rate: 27.0 | Reduced Rate: 18.00 | Country: Hungary

@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CountryVat implements Comparable<CountryVat>{
 
-        private String country;
+    private String country;
     @JsonProperty(value = "standard_rate")
     private Double standardRate;
+    @JsonProperty(value = "reduced_rate")
+    private String reducedRate;
 
 
     public String getCountry() {
@@ -25,9 +27,18 @@ public class CountryVat implements Comparable<CountryVat>{
         this.standardRate = standardRate;
     }
 
+    public String getReducedRate() {
+        return reducedRate;
+    }
+
+    public void setReducedRate(String reducedRate) {
+        this.reducedRate = reducedRate;
+    }
+
     @Override
     public String toString() {
-        return " Country - " + getCountry() + " -  Vat standard rate = " + standardRate ;
+        //return " Country - " + getCountry() + " | Vat standard rate = " + getStandardRate() + " | " + getReduced_rate() ;
+        return  "Standard Rate: " + getStandardRate() + " | Reduced Rate: " + getReducedRate() + " | Country: " + getCountry()  ;
     }
 
     @Override

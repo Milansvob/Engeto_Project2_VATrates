@@ -20,11 +20,8 @@ import java.util.List;
 public class Mapper {
 
     private VatResponse vatResponse;
-    List<CountryVat> vatSorted;
-    String input;
-    JSONObject obj;
-    String json;
-
+    private List<CountryVat> vatSorted;
+    private String input;
 
     // teď je potřeba udělat mapování k tomu ptřebuju ObjecMapper a vytvořit si třídy do kterých to budu ukládat
     // ten string, který jsme si zavolali z toho Appy přemapujeme do tohohle objektu
@@ -44,31 +41,12 @@ public class Mapper {
         return vatResponse;
     }
 
-    public VatResponse getVatResponse() {
-        return vatResponse;
-    }
 
-    public void setVatResponse(VatResponse vatResponse) {
-        this.vatResponse = vatResponse;
-    }
-
-    // public List<Entry<String, CountryVat>> switchHashMapToArrayList() {
-    public List<CountryVat> switchHashMapToArrayList() {
+    public List<CountryVat> switchHashMapToArrayListSort() {
         vatSorted = new ArrayList<>(vatResponse.getRates().values());
         Collections.sort(vatSorted);
-
-        System.out.println("3 countries with the lowest VAT rates:");
-        for (int i = 0; i < 3; i++) {
-            System.out.println(vatSorted.get(i));
-        }
-
-        System.out.println("3 countries with the highest VAT rates:");
-        for (int i = vatSorted.size() - 3; i < vatSorted.size(); i++) {
-            System.out.println(vatSorted.get(i));
-        }
         return vatSorted;
     }
-
 
     public void exportToFile1(String filename) throws StateException {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(filename))) {
@@ -83,57 +61,18 @@ public class Mapper {
         }
     }
 
-
-    public CountryVat setEnterVatFromConsole() {
+    public CountryVat setEnterAbbrevFromConsole() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Country Abbreviation:");
+        System.out.println("\033[0;1m" + "\u001B[43m" + "Enter Country Abbreviation:" + "\033[0;0m");
         while (vatResponse.getRates().get(input) == null) {
             input = sc.nextLine().toUpperCase();
 
             if (vatResponse.getRates().get(input) == null) {
-                System.out.println("Was entered wrong country Abbreviation, please reenter:");
+                System.out.println("\u001B[41m" + "Was entered wrong country Abbreviation, please choose from :" +"\033[0;0m");
+                System.out.println(vatResponse.getRates().keySet());
             }
         }
         return vatResponse.getRates().get(input);
     }
-
-    public JSONObject getJSONObject() throws JSONException {
-        obj = new JSONObject();
-        for (int i = 0; i < 3; i++) {
-
-            obj.put("Name", vatSorted.get(i).getCountry());
-            obj.put("VAT", vatSorted.get(i).getStandardRate());
-            System.out.println(obj);
-
-        }
-        return obj;
-    }
-
-
-
-//    public String parseArrayListToJsonList() {
-//        GsonBuilder gsonBuilder = new GsonBuilder();
-//
-//        // This is the main class for using Gson. Gson is typically used by first constructing a Gson instance and then invoking toJson(Object) or fromJson(String, Class) methods on it.
-//        // Gson instances are Thread-safe so you can reuse them freely across multiple threads.
-//        Gson gson = gsonBuilder.create();
-//
-//        String JSONObject = gson.toJson(vatSorted);
-//        //log("\nConverted JSONObject ==> " + JSONObject);
-//
-//        Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-//        String prettyJson = prettyGson.toJson(vatSorted);
-//
-//        log("\nPretty JSONObject ==> " + prettyJson);
-//        return prettyJson;
-//    }
-//    private static void log(Object print) {
-//        System.out.println(print);
-//    }
-
-
-//    public String s() {
-//        return json = new Gson().toJson(vatSorted );
-//    }
 
 }

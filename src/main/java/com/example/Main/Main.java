@@ -1,24 +1,16 @@
 package com.example.Main;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.*;
 
 public class Main {
 
-    public static final String VAT_EU_OUTPUT1_CSV = "vat-lowest-highest.txt";
+    public static final String VAT_EU_OUTPUT_CSV = "vat-lowest-highest.txt";
 
+    public static void enter (){
+        System.out.println();
+    }
 
     public static void main(String[]args) throws IOException, InterruptedException, JSONException {
         //vytvoření instance třídy
@@ -29,22 +21,32 @@ public class Main {
         Mapper mapper = new Mapper();
         mapper.mapToObject(body);
 
-//
-        mapper.switchHashMapToArrayList();
+        enter();
+
+        System.out.println("\033[0;1m" + "\u001B[43m" + "3 countries with the lowest VAT rates:" + "\033[0;0m");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(mapper.switchHashMapToArrayListSort().get(i));
+        }
+
+        enter();
+
+        System.out.println("\033[0;1m" + "\u001B[43m" + "3 countries with the highest VAT rates:" + "\033[0;0m");
+        for (int i = mapper.switchHashMapToArrayListSort().size() - 3; i < mapper.switchHashMapToArrayListSort().size(); i++) {
+            System.out.println(mapper.switchHashMapToArrayListSort().get(i));
+        }
+
+        enter();
+
+        //Print country according its abbreviation entered in console
+        System.out.println(mapper.setEnterAbbrevFromConsole());
 
 
-        // First import into PLANTS_OUTPUT_TXT
+        // Import into VAT_EU_OUTPUT1_CSV
         try{
-            mapper.exportToFile1(VAT_EU_OUTPUT1_CSV);
+            mapper.exportToFile1(VAT_EU_OUTPUT_CSV);
         }catch (StateException e){
             e.printStackTrace();
         }
-
-        System.out.println(mapper.setEnterVatFromConsole());
-
-        System.out.println("\n Json objects with lowest VAT: ");
-        mapper.getJSONObject();
-
     }
 }
 
